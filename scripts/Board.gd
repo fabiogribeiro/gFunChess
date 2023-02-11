@@ -14,13 +14,6 @@ var selectedPiece = null
 func _ready():
 	board.resize(64)
 	board.fill(null)
-	board[0] = $WhiteBishop1
-	$WhiteBishop1.squareNumber = 0
-	board[18] = $WhiteBishop2
-	$WhiteBishop2.squareNumber = 18
-	
-	board[2] = $BlackBishop1
-	$BlackBishop1.squareNumber = 2
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:

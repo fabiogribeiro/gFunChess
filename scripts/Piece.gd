@@ -13,6 +13,9 @@ func setInSquare():
 	position.x = int(position.x / SQ_SIZE) * SQ_SIZE + SQ_SIZE/2
 	position.y = int(position.y / SQ_SIZE) * SQ_SIZE + SQ_SIZE/2
 
+func getLegalSquares(_board):
+	pass
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	setInSquare()
