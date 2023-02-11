@@ -14,8 +14,13 @@ var selectedPiece = null
 func _ready():
 	board.resize(64)
 	board.fill(null)
-	board[0] = $WhiteBishop
-	$WhiteBishop.squareNumber = 0
+	board[0] = $WhiteBishop1
+	$WhiteBishop1.squareNumber = 0
+	board[18] = $WhiteBishop2
+	$WhiteBishop2.squareNumber = 18
+	
+	board[2] = $BlackBishop1
+	$BlackBishop1.squareNumber = 2
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
@@ -24,12 +29,15 @@ func _input(event):
 
 		if (not selectedPiece) and pieceUnder:
 			selectedPiece = pieceUnder
+			selectedPiece.z_index = 1
 			board[brd_index] = null
 	
 		if selectedPiece and not event.pressed:
 			var isLegal = selectedPiece.getLegalSquares(board).has(brd_index)
 			
 			if isLegal:
+				if board[brd_index]:
+					board[brd_index].queue_free()
 				board[brd_index] = selectedPiece
 				selectedPiece.squareNumber = brd_index
 			else:
@@ -37,6 +45,7 @@ func _input(event):
 				selectedPiece.position = squareToCoords(selectedPiece.squareNumber)
 
 			selectedPiece.setInSquare()
+			selectedPiece.z_index = 0
 			selectedPiece = null
 			
 	if event is InputEventMouseMotion and selectedPiece:
