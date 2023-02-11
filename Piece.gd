@@ -6,6 +6,11 @@ extends Node2D
 # var b = "text"
 enum PieceColor {WHITE, BLACK}
 const SQ_SIZE = 64
+var squareNumber
+var ownColor
+
+func _init(color=PieceColor.WHITE):
+	ownColor = color
 
 func setInSquare():
 	position.x = int(position.x / SQ_SIZE) * SQ_SIZE + SQ_SIZE/2

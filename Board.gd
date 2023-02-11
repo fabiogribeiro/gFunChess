@@ -15,26 +15,38 @@ func _ready():
 	board.resize(64)
 	board.fill(null)
 	board[0] = $WhiteBishop
+	$WhiteBishop.squareNumber = 0
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
-		var index_x = int(event.position.x / SQ_SIZE)
-		var index_y = int(event.position.y / SQ_SIZE)
-		
-		var arr_index = index_y * 8 + index_x
-		var pieceUnder = board[arr_index]
+		var brd_index = coordsToSquare(event.position.x, event.position.y)
+		var pieceUnder = board[brd_index]
 
 		if (not selectedPiece) and pieceUnder:
 			selectedPiece = pieceUnder
-			board[arr_index] = null
+			board[brd_index] = null
 	
 		if selectedPiece and not event.pressed:
+			var isLegal = selectedPiece.getLegalSquares(board).has(brd_index)
+			
+			if isLegal:
+				board[brd_index] = selectedPiece
+				selectedPiece.squareNumber = brd_index
+			else:
+				board[selectedPiece.squareNumber] = selectedPiece
+				selectedPiece.position = squareToCoords(selectedPiece.squareNumber)
+
 			selectedPiece.setInSquare()
-			board[arr_index] = selectedPiece
 			selectedPiece = null
-	
+			
 	if event is InputEventMouseMotion and selectedPiece:
 		selectedPiece.position = event.position
+
+func coordsToSquare(x, y):
+	return int(y / SQ_SIZE) * 8 + int(x / SQ_SIZE)
+
+func squareToCoords(n):
+	return Vector2((n%8)*SQ_SIZE, int(n/8)*SQ_SIZE)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
