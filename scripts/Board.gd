@@ -1,6 +1,5 @@
 extends Node
 
-
 const SQ_SIZE = 64
 
 var board = []
@@ -12,7 +11,7 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
-		var brd_index = coordsToSquare(event.position.x, event.position.y)
+		var brd_index = Utils.coordsToSquare(event.position.x, event.position.y)
 		var pieceUnder = board[brd_index]
 
 		if (not selectedPiece) and pieceUnder:
@@ -22,7 +21,6 @@ func _input(event):
 	
 		if selectedPiece and not event.pressed:
 			var isLegal = selectedPiece.getLegalSquares(board).has(brd_index)
-			
 			if isLegal:
 				if board[brd_index]:
 					board[brd_index].queue_free()
@@ -30,7 +28,7 @@ func _input(event):
 				selectedPiece.squareNumber = brd_index
 			else:
 				board[selectedPiece.squareNumber] = selectedPiece
-				selectedPiece.position = squareToCoords(selectedPiece.squareNumber)
+				selectedPiece.position = Utils.squareToCoords(selectedPiece.squareNumber)
 
 			selectedPiece.setInSquare()
 			selectedPiece.z_index = 0
@@ -38,9 +36,3 @@ func _input(event):
 			
 	if event is InputEventMouseMotion and selectedPiece:
 		selectedPiece.position = event.position
-
-func coordsToSquare(x, y):
-	return int(y / SQ_SIZE) * 8 + int(x / SQ_SIZE)
-
-func squareToCoords(n):
-	return Vector2((n%8)*SQ_SIZE, int(n/8)*SQ_SIZE)

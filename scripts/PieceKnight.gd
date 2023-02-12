@@ -1,14 +1,16 @@
 extends "res://scripts/Piece.gd"
 
-const BASE_MOVES = [-17, 17, -15, 15, -10, 10, -6, 6]
+const BASE_MOVES = [
+	[-1, 2], [1, 2], [-2, 1], [2, 1], [-2, -1], [2, -1], [-1, -2], [1, -2],
+]
 
 
 func getLegalSquares(board):
 	var result = []
 	
 	for move in BASE_MOVES:
-		var candidate = squareNumber + move
-		if candidate >= 0 and candidate < 64:
+		var candidate = getValidSquare(move)
+		if candidate != null:
 			var maybePiece = board[candidate]
 			if maybePiece and maybePiece.ownColor == ownColor:
 				continue

@@ -1,10 +1,10 @@
 extends "res://scripts/Piece.gd"
 
 const BASE_MOVES = [
-		-7, -14, -21, -28, -35, -49, -56, 	# Northeast
-		7, 14, 21, 28, 35, 49, 56, 			# Southwest
-		-9, -18, -27, -36, -45, -54, -63,	# Northwest
-		9, 18, 27, 36, 45, 54, 63			# Southeast
+		[1, 1],[2, 2],[3, 3],[4, 4],[5, 5],[6,6],[7,7],
+		[-1, -1],[-2, -2],[-3, -3],[-4, -4],[-5, -5],[-6,-6],[-7,-7],
+		[1, -1],[2, -2],[3, -3],[4, -4],[5, -5],[6,-6],[7,-7],
+		[-1, 1],[-2, 2],[-3, 3],[-4, 4],[-5, 5],[-6,6],[-7,7],
 	]
 
 func getLegalSquares(board):
@@ -13,16 +13,17 @@ func getLegalSquares(board):
 
 	while (diagonal):
 		for i in range(7):
-			var candidate = squareNumber + BASE_MOVES[7*(diagonal-1) + i]
-			if candidate >= 0 and candidate < 64:
-				var maybePiece = board[candidate]
+			var move = BASE_MOVES[7*(diagonal-1) + i]
+			var validSquare = getValidSquare(move)
+			if validSquare != null:
+				var maybePiece = board[validSquare]
 				if maybePiece:
 					if maybePiece.ownColor != ownColor:
-						result.append(candidate)
+						result.append(validSquare)
 						break
 					else: break
 				else:
-					result.append(candidate)
+					result.append(validSquare)
 					
 		diagonal -= 1
 
