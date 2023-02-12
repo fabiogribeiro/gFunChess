@@ -1,19 +1,24 @@
 extends "res://scripts/Piece.gd"
 
 const BASE_MOVES = [
-		-7, -14, -21, -28, -35, -49, -56, 	# Northeast
-		7, 14, 21, 28, 35, 49, 56, 			# Southwest
-		-9, -18, -27, -36, -45, -54, -63,	# Northwest
-		9, 18, 27, 36, 45, 54, 63			# Southeast
+		-1, -2, -3, -4, -5, -6, -7,				# Left
+		1, 2, 3, 4, 5, 6, 7,					# Right
+		-8, -16, -24, -32, -40, -48, -56,		# Up
+		8, 16, 24, 32, 40, 48, 56				# Down 
 	]
 
 func getLegalSquares(board):
 	var result = []
-	var diagonal = 4
+	var line = 4
 
-	while (diagonal):
+	while (line):
 		for i in range(7):
-			var candidate = squareNumber + BASE_MOVES[7*(diagonal-1) + i]
+			var move = BASE_MOVES[7*(line-1) + i]
+			var candidate = squareNumber + move
+
+			if abs(move) < 8 and squareNumber/8 != candidate/8:
+				continue
+			
 			if candidate >= 0 and candidate < 64:
 				var maybePiece = board[candidate]
 				if maybePiece:
@@ -24,6 +29,6 @@ func getLegalSquares(board):
 				else:
 					result.append(candidate)
 					
-		diagonal -= 1
+		line -= 1
 
 	return result

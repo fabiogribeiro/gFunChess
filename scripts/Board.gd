@@ -1,16 +1,11 @@
 extends Node
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 const SQ_SIZE = 64
 
 var board = []
 var selectedPiece = null
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	board.resize(64)
 	board.fill(null)
@@ -49,7 +44,3 @@ func coordsToSquare(x, y):
 
 func squareToCoords(n):
 	return Vector2((n%8)*SQ_SIZE, int(n/8)*SQ_SIZE)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

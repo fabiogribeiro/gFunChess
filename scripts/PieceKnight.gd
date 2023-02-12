@@ -2,6 +2,7 @@ extends "res://scripts/Piece.gd"
 
 const BASE_MOVES = [-17, 17, -15, 15, -10, 10, -6, 6]
 
+
 func getLegalSquares(board):
 	var result = []
 	
