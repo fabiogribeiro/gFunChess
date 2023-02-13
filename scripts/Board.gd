@@ -9,6 +9,12 @@ func _ready():
 	board.resize(64)
 	board.fill(null)
 
+	board[0] = $BKing
+	$BKing.squareNumber = 0
+
+	board[2] = $WKing
+	$WKing.squareNumber = 2
+
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		var brd_index = Utils.coordsToSquare(event.position.x, event.position.y)
@@ -20,8 +26,7 @@ func _input(event):
 			board[brd_index] = null
 	
 		if selectedPiece and not event.pressed:
-			var isLegal = selectedPiece.getLegalSquares(board).has(brd_index)
-			if isLegal:
+			if isMove(selectedPiece, brd_index) and isKingSafe(selectedPiece, brd_index):
 				if board[brd_index]:
 					board[brd_index].queue_free()
 				board[brd_index] = selectedPiece
@@ -36,3 +41,25 @@ func _input(event):
 			
 	if event is InputEventMouseMotion and selectedPiece:
 		selectedPiece.position = event.position
+
+func isMove(piece, square):
+	return selectedPiece.getLegalSquares(board).has(square)
+
+# Check for king safety
+func isKingSafe(piece, square):
+	var test_board = board.duplicate()
+	test_board[piece.squareNumber] = null
+	test_board[square] = piece
+
+
+	var king = $WKing;
+	if king.ownColor != piece.ownColor:
+		king = $BKing
+
+	var squares = []
+	for test_piece in test_board:
+		if test_piece:
+			if test_piece.ownColor != piece.ownColor:
+				squares.append_array(test_piece.getLegalSquares(test_board))
+
+	return not squares.has(square)
