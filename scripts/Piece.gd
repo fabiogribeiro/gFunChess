@@ -5,6 +5,7 @@ enum PieceColor {WHITE, BLACK}
 export(PieceColor) var ownColor
 
 var squareNumber
+var hasMoved = false
 
 func setInSquare():
 	var SQ_SIZE = Utils.SQ_SIZE
