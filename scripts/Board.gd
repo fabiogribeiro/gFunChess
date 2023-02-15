@@ -5,25 +5,32 @@ const SQ_SIZE = 64
 var board = []
 var selectedPiece = null
 var lastMove = null
+var enPassant = false
+var castlingKingside = false
+var castlingQueenside = false
 
 func _ready():
 	board.resize(64)
 	board.fill(null)
 
-	board[0] = $BKing
-	$BKing.squareNumber = 0
+	board[4] = $BKing
+	$BKing.squareNumber = 4
 
-	board[2] = $WKing
-	$WKing.squareNumber = 2
+	board[60] = $WKing
+	$WKing.squareNumber = 60
 	
-	board[1] = $BQ
-	$BQ.squareNumber = 1
+	board[0] = $BRook2
+	$BRook2.squareNumber = 0
 	
-	board[12] = $BPawn
-	$BPawn.squareNumber = 12
+	board[7] = $BRook
+	$BRook.squareNumber = 7
 	
-	board[29] = $WPawn
-	$WPawn.squareNumber = 29
+	board[63] = $WRook
+	$WRook.squareNumber = 63
+	
+	board[56] = $WRook2
+	$WRook2.squareNumber = 56
+
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
@@ -40,10 +47,31 @@ func _input(event):
 				if board[brd_index]:
 					board[brd_index].queue_free()
 				
-				lastMove = [selectedPiece, selectedPiece.squareNumber]
+				lastMove = [selectedPiece, selectedPiece.squareNumber, brd_index]
 				board[brd_index] = selectedPiece
 				selectedPiece.squareNumber = brd_index
 				selectedPiece.hasMoved = true
+
+				if castlingKingside:
+					var rook = board[brd_index+1]
+					rook.squareNumber = brd_index - 1
+					board[brd_index-1] = rook
+					rook.position -= Vector2(2*SQ_SIZE, 0)
+					board[brd_index+1] = null
+					castlingKingside = false
+				if castlingQueenside:
+					var rook = board[brd_index-2]
+					rook.squareNumber = brd_index + 1
+					board[brd_index+1] = rook
+					rook.position += Vector2(3*SQ_SIZE, 0)
+					board[brd_index-2] = null
+					castlingQueenside = false
+				if enPassant:
+					if lastMove[2] - lastMove[1] < 0:
+						board[brd_index + 8].queue_free()
+					else:
+						board[brd_index - 8].queue_free()
+					enPassant = false
 				
 			else:
 				board[selectedPiece.squareNumber] = selectedPiece
@@ -83,9 +111,28 @@ func isKingSafe(piece, square):
 # Check for en passant and castling
 func isLegal(piece, square):
 	if piece.is_in_group('king'):
-		pass
+		if square - piece.squareNumber == 2:
+			# We're castling kingside
+			var kingSafe = isKingSafe(piece, square) and \
+				isKingSafe(piece, square - 1) and \
+				isKingSafe(piece, square - 2)
+			if kingSafe:
+				castlingKingside = true
+				return true
+
+		elif square - piece.squareNumber == -2:
+			# We're castling queenside
+			var kingSafe = isKingSafe(piece, square) and \
+				isKingSafe(piece, square + 1) and \
+				isKingSafe(piece, square + 2) and \
+				isKingSafe(piece, square + 3)
+
+			if kingSafe:
+				castlingQueenside = true
+				return true
+		else:
+			return isKingSafe(piece, square)
 	elif piece.is_in_group('pawn'):
-		# Remove would be capture off board temporaril
 		if (square - piece.squareNumber) % 8 == 0:
 			return isKingSafe(piece, square)
 
@@ -106,7 +153,9 @@ func isLegal(piece, square):
 		var kingSafe = isKingSafe(piece, square)
 		board = tmp
 		
-		return kingSafe
+		if kingSafe:
+			enPassant = true
+			return true
 		
 	else:
 		return isKingSafe(piece, square)

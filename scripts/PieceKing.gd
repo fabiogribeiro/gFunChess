@@ -9,8 +9,13 @@ const BASE_MOVES = [
 
 func getLegalSquares(board):
 	var result = []
-	
-	for move in BASE_MOVES:
+	var moves = BASE_MOVES.duplicate()
+	if canCastleKingside(board):
+		moves.append([2, 0])
+	if canCastleQueenside(board):
+		moves.append([-2, 0])
+
+	for move in moves:
 		var candidate = getValidSquare(move)
 		if candidate != null:
 			var maybePiece = board[candidate]
@@ -20,3 +25,20 @@ func getLegalSquares(board):
 			result.append(candidate)
 	
 	return result
+
+func canCastleKingside(board):
+	var rookLocPiece = board[squareNumber + 3]
+	return not hasMoved and \
+		rookLocPiece and \
+		(not rookLocPiece.hasMoved) and \
+		board[squareNumber + 1] == null and \
+		board[squareNumber + 2] == null
+
+func canCastleQueenside(board):
+	var rookLocPiece = board[squareNumber - 4]
+	return not hasMoved and \
+		rookLocPiece and \
+		(not rookLocPiece.hasMoved) and \
+		board[squareNumber - 1] == null and \
+		board[squareNumber - 2] == null and \
+		board[squareNumber - 3] == null
