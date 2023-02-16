@@ -12,25 +12,8 @@ var castlingQueenside = false
 func _ready():
 	board.resize(64)
 	board.fill(null)
-
-	board[4] = $BKing
-	$BKing.squareNumber = 4
-
-	board[60] = $WKing
-	$WKing.squareNumber = 60
 	
-	board[0] = $BRook2
-	$BRook2.squareNumber = 0
-	
-	board[7] = $BRook
-	$BRook.squareNumber = 7
-	
-	board[63] = $WRook
-	$WRook.squareNumber = 63
-	
-	board[56] = $WRook2
-	$WRook2.squareNumber = 56
-
+	initPieces()
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
@@ -159,3 +142,7 @@ func isLegal(piece, square):
 		
 	else:
 		return isKingSafe(piece, square)
+
+func initPieces():
+	for piece in get_tree().get_nodes_in_group('piece'):
+		piece.boardInit(board)

@@ -27,3 +27,9 @@ func getValidSquare(move):
 
 func _ready():
 	setInSquare()
+
+func boardInit(board):
+	var square = Utils.coordsToSquare(position.x, position.y)
+	squareNumber = square
+	board[square] = self
+	setInSquare()
