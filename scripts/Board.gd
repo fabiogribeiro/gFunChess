@@ -9,6 +9,8 @@ var enPassant = false
 var castlingKingside = false
 var castlingQueenside = false
 
+var turn = 0
+
 func _ready():
 	board.resize(64)
 	board.fill(null)
@@ -26,7 +28,9 @@ func _input(event):
 			board[brd_index] = null
 	
 		if selectedPiece and not event.pressed:
-			if isMove(selectedPiece, brd_index) and isLegal(selectedPiece, brd_index):
+			if selectedPiece.ownColor == int(turn) and \
+				isMove(selectedPiece, brd_index) and \
+				isLegal(selectedPiece, brd_index):
 				if board[brd_index]:
 					board[brd_index].queue_free()
 				
@@ -34,6 +38,7 @@ func _input(event):
 				board[brd_index] = selectedPiece
 				selectedPiece.squareNumber = brd_index
 				selectedPiece.hasMoved = true
+				turn = not selectedPiece.ownColor
 
 				if castlingKingside:
 					var rook = board[brd_index+1]
