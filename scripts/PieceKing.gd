@@ -27,17 +27,19 @@ func getLegalSquares(board):
 	return result
 
 func canCastleKingside(board):
+	if hasMoved: return false
+
 	var rookLocPiece = board[squareNumber + 3]
-	return not hasMoved and \
-		rookLocPiece and \
+	return rookLocPiece and \
 		(not rookLocPiece.hasMoved) and \
 		board[squareNumber + 1] == null and \
 		board[squareNumber + 2] == null
 
 func canCastleQueenside(board):
+	if hasMoved: return false
+
 	var rookLocPiece = board[squareNumber - 4]
-	return not hasMoved and \
-		rookLocPiece and \
+	return rookLocPiece and \
 		(not rookLocPiece.hasMoved) and \
 		board[squareNumber - 1] == null and \
 		board[squareNumber - 2] == null and \

@@ -33,6 +33,7 @@ func _input(event):
 				isLegal(selectedPiece, brd_index):
 				if board[brd_index]:
 					board[brd_index].queue_free()
+					board[brd_index] = null
 				
 				lastMove = [selectedPiece, selectedPiece.squareNumber, brd_index]
 				board[brd_index] = selectedPiece
@@ -57,8 +58,10 @@ func _input(event):
 				if enPassant:
 					if lastMove[2] - lastMove[1] < 0:
 						board[brd_index + 8].queue_free()
+						board[brd_index + 8] = null
 					else:
 						board[brd_index - 8].queue_free()
+						board[brd_index - 8] = null
 					enPassant = false
 				
 			else:
@@ -121,10 +124,10 @@ func isLegal(piece, square):
 		else:
 			return isKingSafe(piece, square)
 	elif piece.is_in_group('pawn'):
-		if (square - piece.squareNumber) % 8 == 0:
+		if (square - piece.squareNumber) % 8 == 0 or board[square]:
 			return isKingSafe(piece, square)
 
-		# En passant
+		# Try en passant
 		var enemyPawn
 		if piece.squareNumber > square:
 			enemyPawn = board[square + 8]
@@ -144,7 +147,7 @@ func isLegal(piece, square):
 		if kingSafe:
 			enPassant = true
 			return true
-		
+
 	else:
 		return isKingSafe(piece, square)
 
