@@ -85,6 +85,8 @@ func _input(event):
 			if isCheckmate():
 				emit_signal("checkmate", lastMove[0].ownColor)
 			
+			putInCheck()
+			
 	if event is InputEventMouseMotion and selectedPiece:
 		selectedPiece.position = event.position
 
@@ -192,3 +194,27 @@ func isCheckmate():
 
 	selectedPiece = tmp
 	return true
+
+func putInCheck():
+	var squares = []
+	var tmp = selectedPiece
+	for piece in board:
+		if piece:
+			selectedPiece = piece
+			for i in range(64):
+				if selectedPiece.ownColor != int(turn) and \
+					isMove(selectedPiece, i) and \
+					isLegal(selectedPiece, i, false):
+						squares.append(i)
+
+	selectedPiece = tmp
+	
+	var king = $WKing
+	if king.ownColor != int(turn):
+		king = $BKing
+	
+	if squares.has(king.squareNumber):
+		$CheckSquare.position = king.position
+		$CheckSquare.show()
+	else:
+		$CheckSquare.hide()
