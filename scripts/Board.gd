@@ -3,11 +3,14 @@ extends Node
 const SQ_SIZE = 64
 
 var board = []
+
 var selectedPiece = null
 var lastMove = null
 var enPassant = false
 var castlingKingside = false
 var castlingQueenside = false
+
+var showLegalMoves = false
 
 var turn = 0
 
@@ -26,11 +29,16 @@ func _input(event):
 			selectedPiece = pieceUnder
 			selectedPiece.z_index = 1
 			board[brd_index] = null
+
+			if showLegalMoves: showLegalMoves()
 	
 		if selectedPiece and not event.pressed:
+			get_tree().call_group('circle', 'queue_free')
+
 			if selectedPiece.ownColor == int(turn) and \
 				isMove(selectedPiece, brd_index) and \
 				isLegal(selectedPiece, brd_index):
+
 				if board[brd_index]:
 					board[brd_index].queue_free()
 					board[brd_index] = null
@@ -100,7 +108,7 @@ func isKingSafe(piece, square):
 	return not squares.has(king.squareNumber)
 
 # Check for en passant and castling
-func isLegal(piece, square):
+func isLegal(piece, square, modify=true):
 	if piece.is_in_group('king'):
 		if square - piece.squareNumber == 2:
 			# We're castling kingside
@@ -108,7 +116,7 @@ func isLegal(piece, square):
 				isKingSafe(piece, square - 1) and \
 				isKingSafe(piece, square - 2)
 			if kingSafe:
-				castlingKingside = true
+				if modify: castlingKingside = true
 				return true
 
 		elif square - piece.squareNumber == -2:
@@ -119,7 +127,7 @@ func isLegal(piece, square):
 				isKingSafe(piece, square + 3)
 
 			if kingSafe:
-				castlingQueenside = true
+				if modify: castlingQueenside = true
 				return true
 		else:
 			return isKingSafe(piece, square)
@@ -145,7 +153,7 @@ func isLegal(piece, square):
 		board = tmp
 		
 		if kingSafe:
-			enPassant = true
+			if modify: enPassant = true
 			return true
 
 	else:
@@ -154,3 +162,13 @@ func isLegal(piece, square):
 func initPieces():
 	for piece in get_tree().get_nodes_in_group('piece'):
 		piece.boardInit(board)
+
+func showLegalMoves():
+	for i in range(64):
+		if selectedPiece.ownColor == int(turn) and \
+			isMove(selectedPiece, i) and \
+			isLegal(selectedPiece, i, false):
+				var newCircle = $Circle.duplicate()
+				newCircle.add_to_group('circle')
+				newCircle.position = Utils.squareToCoords(i)
+				add_child(newCircle)
