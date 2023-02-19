@@ -14,6 +14,8 @@ var showLegalMoves = false
 
 var turn = 0
 
+signal checkmate(winner)
+
 func _ready():
 	board.resize(64)
 	board.fill(null)
@@ -79,6 +81,9 @@ func _input(event):
 			selectedPiece.setInSquare()
 			selectedPiece.z_index = 0
 			selectedPiece = null
+			
+			if isCheckmate():
+				emit_signal("checkmate", lastMove[0].ownColor)
 			
 	if event is InputEventMouseMotion and selectedPiece:
 		selectedPiece.position = event.position
@@ -172,3 +177,18 @@ func showLegalMoves():
 				newCircle.add_to_group('circle')
 				newCircle.position = Utils.squareToCoords(i)
 				add_child(newCircle)
+
+func isCheckmate():
+	var tmp = selectedPiece
+	for piece in board:
+		if piece:
+			selectedPiece = piece
+			for i in range(64):
+				if selectedPiece.ownColor == int(turn) and \
+					isMove(selectedPiece, i) and \
+					isLegal(selectedPiece, i, false):
+						selectedPiece = tmp
+						return false
+
+	selectedPiece = tmp
+	return true
