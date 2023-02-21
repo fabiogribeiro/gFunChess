@@ -1,7 +1,10 @@
 extends Node
 
 const SQ_SIZE = 64
+const FLIP_TRANSFORM = Transform2D(Vector2(-1, 0), Vector2(0, -1), Vector2(512, 512))
 
+var flipped = false
+var transform = Transform2D.IDENTITY
 var board = []
 
 var selectedPiece = null
@@ -24,6 +27,8 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
+		event.position = transform * event.position
+
 		var brd_index = Utils.coordsToSquare(event.position.x, event.position.y)
 		var pieceUnder = board[brd_index]
 
@@ -73,10 +78,11 @@ func _input(event):
 						board[brd_index - 8].queue_free()
 						board[brd_index - 8] = null
 					enPassant = false
-				
+
+				flipBoard()
 			else:
 				board[selectedPiece.squareNumber] = selectedPiece
-				selectedPiece.position = Utils.squareToCoords(selectedPiece.squareNumber)
+				selectedPiece.position = transform * Utils.squareToCoords(selectedPiece.squareNumber)
 
 			selectedPiece.setInSquare()
 			selectedPiece.z_index = 0
@@ -86,7 +92,7 @@ func _input(event):
 				emit_signal("checkmate", lastMove[0].ownColor)
 			
 			putInCheck()
-			
+
 	if event is InputEventMouseMotion and selectedPiece:
 		selectedPiece.position = event.position
 
@@ -177,7 +183,7 @@ func showLegalMoves():
 			isLegal(selectedPiece, i, false):
 				var newCircle = $Circle.duplicate()
 				newCircle.add_to_group('circle')
-				newCircle.position = Utils.squareToCoords(i)
+				newCircle.position = transform * Utils.squareToCoords(i)
 				add_child(newCircle)
 
 func isCheckmate():
@@ -214,7 +220,19 @@ func putInCheck():
 		king = $BKing
 	
 	if squares.has(king.squareNumber):
-		$CheckSquare.position = king.position
+		$CheckSquare.position = transform * king.position
 		$CheckSquare.show()
 	else:
 		$CheckSquare.hide()
+
+func flipBoard():
+	var pieces = get_tree().get_nodes_in_group('piece')
+	for piece in pieces:
+		piece.position = FLIP_TRANSFORM * piece.position
+
+	if flipped:
+		transform = Transform2D.IDENTITY
+	else:
+		transform = FLIP_TRANSFORM
+
+	flipped = not flipped
