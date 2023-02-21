@@ -43,6 +43,7 @@ margin_left = -97.0
 margin_top = 74.0
 margin_right = 97.0
 margin_bottom = 114.0
+pressed = true
 text = "Show legal moves"
 
 [connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]

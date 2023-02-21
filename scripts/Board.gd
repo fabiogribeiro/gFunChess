@@ -60,14 +60,16 @@ func _input(event):
 					var rook = board[brd_index+1]
 					rook.squareNumber = brd_index - 1
 					board[brd_index-1] = rook
-					rook.position -= Vector2(2*SQ_SIZE, 0)
+					if flipped: rook.position += Vector2(2*SQ_SIZE, 0)
+					else: rook.position -= Vector2(2*SQ_SIZE, 0)
 					board[brd_index+1] = null
 					castlingKingside = false
 				if castlingQueenside:
 					var rook = board[brd_index-2]
 					rook.squareNumber = brd_index + 1
 					board[brd_index+1] = rook
-					rook.position += Vector2(3*SQ_SIZE, 0)
+					if flipped: rook.position -= Vector2(3*SQ_SIZE, 0)
+					else: rook.position += Vector2(3*SQ_SIZE, 0)
 					board[brd_index-2] = null
 					castlingQueenside = false
 				if enPassant:
@@ -80,6 +82,7 @@ func _input(event):
 					enPassant = false
 
 				flipBoard()
+				putInCheck()
 			else:
 				board[selectedPiece.squareNumber] = selectedPiece
 				selectedPiece.position = transform * Utils.squareToCoords(selectedPiece.squareNumber)
@@ -90,8 +93,6 @@ func _input(event):
 			
 			if isCheckmate():
 				emit_signal("checkmate", lastMove[0].ownColor)
-			
-			putInCheck()
 
 	if event is InputEventMouseMotion and selectedPiece:
 		selectedPiece.position = event.position
@@ -220,7 +221,7 @@ func putInCheck():
 		king = $BKing
 	
 	if squares.has(king.squareNumber):
-		$CheckSquare.position = transform * king.position
+		$CheckSquare.position = king.position
 		$CheckSquare.show()
 	else:
 		$CheckSquare.hide()
