@@ -2,6 +2,9 @@ extends Node
 
 const SQ_SIZE = 64
 const FLIP_TRANSFORM = Transform2D(Vector2(-1, 0), Vector2(0, -1), Vector2(512, 512))
+const PieceWhiteQueen = preload("res://scenes/pieces/PieceWhiteQueen.tscn")
+const PieceBlackQueen = preload("res://scenes/pieces/PieceBlackQueen.tscn")
+
 
 var flipped = false
 var transform = Transform2D.IDENTITY
@@ -54,6 +57,7 @@ func _input(event):
 				board[brd_index] = selectedPiece
 				selectedPiece.squareNumber = brd_index
 				selectedPiece.hasMoved = true
+				handlePromotion()
 				turn = not selectedPiece.ownColor
 
 				if castlingKingside:
@@ -237,3 +241,22 @@ func flipBoard():
 		transform = FLIP_TRANSFORM
 
 	flipped = not flipped
+
+func handlePromotion():
+	var piece = lastMove[0]
+	var square = lastMove[2]
+	var new_piece = null
+	if piece.is_in_group('pawn'):
+		if square / 8 == 0 and piece.ownColor == 0 :
+			new_piece = PieceWhiteQueen.instance()
+
+		if square / 8 == 7 and piece.ownColor == 1:
+			new_piece = PieceBlackQueen.instance()
+
+	if new_piece:
+			new_piece.add_to_group('piece')
+			self.add_child(new_piece)
+			new_piece.squareNumber = square
+			board[square] = new_piece
+			new_piece.position = transform * Utils.squareToCoords(square)
+			piece.queue_free()
