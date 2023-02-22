@@ -5,18 +5,20 @@ var board
 func new_game():
 	board = preload("res://scenes/Board.tscn").instance()
 	board.showLegalMoves = $UserInterface/ShowMoves.pressed
-	board.connect("checkmate", self, "checkmate")
+	board.connect("mate", self, "mate")
 	add_child(board)
 	$UserInterface.hide()
 
-func checkmate(winner):
+func mate(winner):
 	board.queue_free()
 	$UserInterface.show()
 
-	if winner:
+	if winner == 1:
 		$Message.text = "Black wins!"
-	else:
+	elif winner == 0:
 		$Message.text = "White wins!"
+	else:
+		$Message.text = "It's a draw."
 	$Message.show()
 	yield(get_tree().create_timer(3), "timeout")
 	$Message.hide()

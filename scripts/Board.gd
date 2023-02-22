@@ -15,12 +15,13 @@ var lastMove = null
 var enPassant = false
 var castlingKingside = false
 var castlingQueenside = false
+var inCheck = false
 
 var showLegalMoves = false
 
 var turn = 0
 
-signal checkmate(winner)
+signal mate(winner)
 
 func _ready():
 	board.resize(64)
@@ -95,8 +96,9 @@ func _input(event):
 			selectedPiece.z_index = 0
 			selectedPiece = null
 			
-			if isCheckmate():
-				emit_signal("checkmate", lastMove[0].ownColor)
+			if not hasMoves():
+				if inCheck: emit_signal("mate", lastMove[0].ownColor)
+				else: emit_signal("mate", null)
 
 	if event is InputEventMouseMotion and selectedPiece:
 		selectedPiece.position = event.position
@@ -191,7 +193,7 @@ func showLegalMoves():
 				newCircle.position = transform * Utils.squareToCoords(i)
 				add_child(newCircle)
 
-func isCheckmate():
+func hasMoves():
 	var tmp = selectedPiece
 	for piece in board:
 		if piece:
@@ -201,10 +203,10 @@ func isCheckmate():
 					isMove(selectedPiece, i) and \
 					isLegal(selectedPiece, i, false):
 						selectedPiece = tmp
-						return false
+						return true
 
 	selectedPiece = tmp
-	return true
+	return false
 
 func putInCheck():
 	var squares = []
@@ -227,8 +229,10 @@ func putInCheck():
 	if squares.has(king.squareNumber):
 		$CheckSquare.position = king.position
 		$CheckSquare.show()
+		inCheck = true
 	else:
 		$CheckSquare.hide()
+		inCheck = false
 
 func flipBoard():
 	var pieces = get_tree().get_nodes_in_group('piece')
