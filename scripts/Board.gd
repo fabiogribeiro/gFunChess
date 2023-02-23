@@ -2,8 +2,8 @@ extends Node
 
 const SQ_SIZE = 64
 const FLIP_TRANSFORM = Transform2D(Vector2(-1, 0), Vector2(0, -1), Vector2(512, 512))
-const PieceWhiteQueen = preload("res://scenes/pieces/PieceWhiteQueen.tscn")
-const PieceBlackQueen = preload("res://scenes/pieces/PieceBlackQueen.tscn")
+
+const PieceSelector = preload("res://scenes/PieceSelector.tscn")
 
 
 var flipped = false
@@ -58,7 +58,35 @@ func _input(event):
 				board[brd_index] = selectedPiece
 				selectedPiece.squareNumber = brd_index
 				selectedPiece.hasMoved = true
-				handlePromotion()
+
+				if selectedPiece.is_in_group('pawn'):
+					var selector = null
+					if brd_index / 8 == 0 and selectedPiece.ownColor == 0 :
+						selector = PieceSelector.instance()
+						selector.init(0)
+
+					if brd_index / 8 == 7 and selectedPiece.ownColor == 1:
+						selector = PieceSelector.instance()
+						selector.init(1)
+
+					if selector:
+						selectedPiece.setInSquare()
+						add_child(selector)
+						get_tree().paused = true
+						var new_piece = yield(selector, 'selected')
+
+						selector.remove_child(new_piece)
+						self.add_child(new_piece)
+						new_piece.add_to_group('piece')
+						new_piece.squareNumber = brd_index
+						board[brd_index] = new_piece
+						new_piece.position = transform * Utils.squareToCoords(brd_index)
+						selectedPiece.queue_free()
+						lastMove[0] = new_piece
+
+						get_tree().paused = false
+						selector.queue_free()
+				
 				turn = not selectedPiece.ownColor
 
 				if castlingKingside:
@@ -245,22 +273,3 @@ func flipBoard():
 		transform = FLIP_TRANSFORM
 
 	flipped = not flipped
-
-func handlePromotion():
-	var piece = lastMove[0]
-	var square = lastMove[2]
-	var new_piece = null
-	if piece.is_in_group('pawn'):
-		if square / 8 == 0 and piece.ownColor == 0 :
-			new_piece = PieceWhiteQueen.instance()
-
-		if square / 8 == 7 and piece.ownColor == 1:
-			new_piece = PieceBlackQueen.instance()
-
-	if new_piece:
-			new_piece.add_to_group('piece')
-			self.add_child(new_piece)
-			new_piece.squareNumber = square
-			board[square] = new_piece
-			new_piece.position = transform * Utils.squareToCoords(square)
-			piece.queue_free()
