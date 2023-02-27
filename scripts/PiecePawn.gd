@@ -37,7 +37,7 @@ func isCapture(move):
 
 func getValidSquarePawn(board, move):
 	var inBoundsSquare = getValidSquare(move)
-	if not inBoundsSquare: return null
+	if inBoundsSquare == null: return null
 
 	if isCapture(move):
 		# Try en passant
