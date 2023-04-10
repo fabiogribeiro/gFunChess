@@ -1,164 +1,188 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=3 uid="uid://ddxoj42s0fkue"]
 
-[ext_resource path="res://art/square brown light_png_128px.png" type="Texture" id=1]
-[ext_resource path="res://art/square brown dark_png_128px.png" type="Texture" id=2]
-[ext_resource path="res://scripts/Board.gd" type="Script" id=3]
-[ext_resource path="res://scenes/pieces/PieceWhiteKing.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/pieces/PieceBlackKing.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/pieces/PieceWhiteRook.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/pieces/PieceBlackRook.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/pieces/PieceWhitePawn.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/pieces/PieceWhiteQueen.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/pieces/PieceWhiteKnight.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/pieces/PieceWhiteBishop.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/pieces/PieceBlackBishop.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/pieces/PieceBlackPawn.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/pieces/PieceBlackKnight.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/pieces/PieceBlackQueen.tscn" type="PackedScene" id=15]
-[ext_resource path="res://art/circle.png" type="Texture" id=16]
-[ext_resource path="res://art/square gray dark _png_128px.png" type="Texture" id=17]
+[ext_resource type="Texture2D" uid="uid://256b2ma8s2jl" path="res://art/square brown light_png_128px.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://b5226fas5ig0k" path="res://art/square brown dark_png_128px.png" id="2"]
+[ext_resource type="Script" path="res://scripts/Board.gd" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/pieces/PieceWhiteKing.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/pieces/PieceBlackKing.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/pieces/PieceWhiteRook.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/pieces/PieceBlackRook.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/pieces/PieceWhitePawn.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/pieces/PieceWhiteQueen.tscn" id="9"]
+[ext_resource type="PackedScene" path="res://scenes/pieces/PieceWhiteKnight.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/pieces/PieceWhiteBishop.tscn" id="11"]
+[ext_resource type="PackedScene" path="res://scenes/pieces/PieceBlackBishop.tscn" id="12"]
+[ext_resource type="PackedScene" path="res://scenes/pieces/PieceBlackPawn.tscn" id="13"]
+[ext_resource type="PackedScene" path="res://scenes/pieces/PieceBlackKnight.tscn" id="14"]
+[ext_resource type="PackedScene" path="res://scenes/pieces/PieceBlackQueen.tscn" id="15"]
+[ext_resource type="Texture2D" uid="uid://06agnaqfo61l" path="res://art/circle.png" id="16"]
+[ext_resource type="Texture2D" uid="uid://cfov4q6k86gf2" path="res://art/square gray dark _png_128px.png" id="17"]
 
-[sub_resource type="TileSet" id=1]
-0/name = "square brown light_png_128px.png 0"
-0/texture = ExtResource( 1 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 0, 128, 128 )
-0/tile_mode = 0
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape_one_way = false
-0/shape_one_way_margin = 0.0
-0/shapes = [  ]
-0/z_index = 0
-1/name = "square brown dark_png_128px.png 1"
-1/texture = ExtResource( 2 )
-1/tex_offset = Vector2( 0, 0 )
-1/modulate = Color( 1, 1, 1, 1 )
-1/region = Rect2( 0, 0, 128, 128 )
-1/tile_mode = 0
-1/occluder_offset = Vector2( 0, 0 )
-1/navigation_offset = Vector2( 0, 0 )
-1/shape_offset = Vector2( 0, 0 )
-1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape_one_way = false
-1/shape_one_way_margin = 0.0
-1/shapes = [  ]
-1/z_index = 0
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jep2t"]
+texture = ExtResource("1")
+texture_region_size = Vector2i(128, 128)
+0:0/next_alternative_id = 8
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/flip_h = true
+0:0/2 = 2
+0:0/2/flip_v = true
+0:0/3 = 3
+0:0/3/flip_h = true
+0:0/3/flip_v = true
+0:0/4 = 4
+0:0/4/transpose = true
+0:0/5 = 5
+0:0/5/flip_h = true
+0:0/5/transpose = true
+0:0/6 = 6
+0:0/6/flip_v = true
+0:0/6/transpose = true
+0:0/7 = 7
+0:0/7/flip_h = true
+0:0/7/flip_v = true
+0:0/7/transpose = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ew52m"]
+texture = ExtResource("2")
+texture_region_size = Vector2i(128, 128)
+0:0/next_alternative_id = 8
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/flip_h = true
+0:0/2 = 2
+0:0/2/flip_v = true
+0:0/3 = 3
+0:0/3/flip_h = true
+0:0/3/flip_v = true
+0:0/4 = 4
+0:0/4/transpose = true
+0:0/5 = 5
+0:0/5/flip_h = true
+0:0/5/transpose = true
+0:0/6 = 6
+0:0/6/flip_v = true
+0:0/6/transpose = true
+0:0/7 = 7
+0:0/7/flip_h = true
+0:0/7/flip_v = true
+0:0/7/transpose = true
+
+[sub_resource type="TileSet" id="1"]
+tile_size = Vector2i(128, 128)
+sources/0 = SubResource("TileSetAtlasSource_jep2t")
+sources/1 = SubResource("TileSetAtlasSource_ew52m")
 
 [node name="Board" type="Node"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
-[node name="Circle" type="Sprite" parent="."]
-scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 16 )
+[node name="Circle" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("16")
 
 [node name="BoardTileMap" type="TileMap" parent="."]
-scale = Vector2( 0.5, 0.5 )
-tile_set = SubResource( 1 )
-cell_size = Vector2( 128, 128 )
-format = 1
-tile_data = PoolIntArray( 0, 0, 0, 1, 1, 0, 2, 0, 0, 3, 1, 0, 4, 0, 0, 5, 1, 0, 6, 0, 0, 7, 1, 0, 65536, 1, 0, 65537, 0, 0, 65538, 1, 0, 65539, 0, 0, 65540, 1, 0, 65541, 0, 0, 65542, 1, 0, 65543, 0, 0, 131072, 0, 0, 131073, 1, 0, 131074, 0, 0, 131075, 1, 0, 131076, 0, 0, 131077, 1, 0, 131078, 0, 0, 131079, 1, 0, 196608, 1, 0, 196609, 0, 0, 196610, 1, 0, 196611, 0, 0, 196612, 1, 0, 196613, 0, 0, 196614, 1, 0, 196615, 0, 0, 262144, 0, 0, 262145, 1, 0, 262146, 0, 0, 262147, 1, 0, 262148, 0, 0, 262149, 1, 0, 262150, 0, 0, 262151, 1, 0, 327680, 1, 0, 327681, 0, 0, 327682, 1, 0, 327683, 0, 0, 327684, 1, 0, 327685, 0, 0, 327686, 1, 0, 327687, 0, 0, 393216, 0, 0, 393217, 1, 0, 393218, 0, 0, 393219, 1, 0, 393220, 0, 0, 393221, 1, 0, 393222, 0, 0, 393223, 1, 0, 458752, 1, 0, 458753, 0, 0, 458754, 1, 0, 458755, 0, 0, 458756, 1, 0, 458757, 0, 0, 458758, 1, 0, 458759, 0, 0 )
+scale = Vector2(0.5, 0.5)
+tile_set = SubResource("1")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 1, 0, 2, 0, 0, 3, 1, 0, 4, 0, 0, 5, 1, 0, 6, 0, 0, 7, 1, 0, 65536, 1, 0, 65537, 0, 0, 65538, 1, 0, 65539, 0, 0, 65540, 1, 0, 65541, 0, 0, 65542, 1, 0, 65543, 0, 0, 131072, 0, 0, 131073, 1, 0, 131074, 0, 0, 131075, 1, 0, 131076, 0, 0, 131077, 1, 0, 131078, 0, 0, 131079, 1, 0, 196608, 1, 0, 196609, 0, 0, 196610, 1, 0, 196611, 0, 0, 196612, 1, 0, 196613, 0, 0, 196614, 1, 0, 196615, 0, 0, 262144, 0, 0, 262145, 1, 0, 262146, 0, 0, 262147, 1, 0, 262148, 0, 0, 262149, 1, 0, 262150, 0, 0, 262151, 1, 0, 327680, 1, 0, 327681, 0, 0, 327682, 1, 0, 327683, 0, 0, 327684, 1, 0, 327685, 0, 0, 327686, 1, 0, 327687, 0, 0, 393216, 0, 0, 393217, 1, 0, 393218, 0, 0, 393219, 1, 0, 393220, 0, 0, 393221, 1, 0, 393222, 0, 0, 393223, 1, 0, 458752, 1, 0, 458753, 0, 0, 458754, 1, 0, 458755, 0, 0, 458756, 1, 0, 458757, 0, 0, 458758, 1, 0, 458759, 0, 0)
 
-[node name="CheckSquare" type="Sprite" parent="."]
+[node name="CheckSquare" type="Sprite2D" parent="."]
 visible = false
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 17 )
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17")
 
-[node name="WKing" parent="." groups=["king", "piece"] instance=ExtResource( 4 )]
-position = Vector2( 289, 477 )
+[node name="WKing" parent="." groups=["king", "piece"] instance=ExtResource("4")]
+position = Vector2(289, 477)
 
-[node name="BKing" parent="." groups=["king", "piece"] instance=ExtResource( 5 )]
-position = Vector2( 279, 32 )
+[node name="BKing" parent="." groups=["king", "piece"] instance=ExtResource("5")]
+position = Vector2(279, 32)
 
-[node name="WRook" parent="." groups=["piece"] instance=ExtResource( 6 )]
-position = Vector2( 480, 479 )
+[node name="WRook" parent="." groups=["piece"] instance=ExtResource("6")]
+position = Vector2(480, 479)
 
-[node name="WRook2" parent="." groups=["piece"] instance=ExtResource( 6 )]
-position = Vector2( 25, 478 )
+[node name="WRook2" parent="." groups=["piece"] instance=ExtResource("6")]
+position = Vector2(25, 478)
 
-[node name="BRook" parent="." groups=["piece"] instance=ExtResource( 7 )]
-position = Vector2( 477, 32 )
+[node name="BRook" parent="." groups=["piece"] instance=ExtResource("7")]
+position = Vector2(477, 32)
 
-[node name="BRook2" parent="." groups=["piece"] instance=ExtResource( 7 )]
-position = Vector2( 33, 34 )
+[node name="BRook2" parent="." groups=["piece"] instance=ExtResource("7")]
+position = Vector2(33, 34)
 
-[node name="Piece" parent="." groups=["piece"] instance=ExtResource( 11 )]
-position = Vector2( 352, 478 )
+[node name="Piece" parent="." groups=["piece"] instance=ExtResource("11")]
+position = Vector2(352, 478)
 
-[node name="Piece3" parent="." groups=["piece"] instance=ExtResource( 11 )]
-position = Vector2( 162, 481 )
+[node name="Piece3" parent="." groups=["piece"] instance=ExtResource("11")]
+position = Vector2(162, 481)
 
-[node name="Piece2" parent="." groups=["piece"] instance=ExtResource( 10 )]
-position = Vector2( 411, 477 )
+[node name="Piece2" parent="." groups=["piece"] instance=ExtResource("10")]
+position = Vector2(411, 477)
 
-[node name="Piece4" parent="." groups=["piece"] instance=ExtResource( 10 )]
-position = Vector2( 95, 477 )
+[node name="Piece4" parent="." groups=["piece"] instance=ExtResource("10")]
+position = Vector2(95, 477)
 
-[node name="Piece5" parent="." groups=["piece"] instance=ExtResource( 9 )]
-position = Vector2( 222, 480 )
+[node name="Piece5" parent="." groups=["piece"] instance=ExtResource("9")]
+position = Vector2(222, 480)
 
-[node name="Piece6" parent="." groups=["pawn", "piece"] instance=ExtResource( 8 )]
-position = Vector2( 31, 412 )
+[node name="Piece6" parent="." groups=["pawn", "piece"] instance=ExtResource("8")]
+position = Vector2(31, 412)
 
-[node name="Piece7" parent="." groups=["pawn", "piece"] instance=ExtResource( 8 )]
-position = Vector2( 92, 412 )
+[node name="Piece7" parent="." groups=["pawn", "piece"] instance=ExtResource("8")]
+position = Vector2(92, 412)
 
-[node name="Piece8" parent="." groups=["pawn", "piece"] instance=ExtResource( 8 )]
-position = Vector2( 155, 415 )
+[node name="Piece8" parent="." groups=["pawn", "piece"] instance=ExtResource("8")]
+position = Vector2(155, 415)
 
-[node name="Piece9" parent="." groups=["pawn", "piece"] instance=ExtResource( 8 )]
-position = Vector2( 221, 412 )
+[node name="Piece9" parent="." groups=["pawn", "piece"] instance=ExtResource("8")]
+position = Vector2(221, 412)
 
-[node name="Piece10" parent="." groups=["pawn", "piece"] instance=ExtResource( 8 )]
-position = Vector2( 285, 413 )
+[node name="Piece10" parent="." groups=["pawn", "piece"] instance=ExtResource("8")]
+position = Vector2(285, 413)
 
-[node name="Piece11" parent="." groups=["pawn", "piece"] instance=ExtResource( 8 )]
-position = Vector2( 354, 415 )
+[node name="Piece11" parent="." groups=["pawn", "piece"] instance=ExtResource("8")]
+position = Vector2(354, 415)
 
-[node name="Piece12" parent="." groups=["pawn", "piece"] instance=ExtResource( 8 )]
-position = Vector2( 414, 413 )
+[node name="Piece12" parent="." groups=["pawn", "piece"] instance=ExtResource("8")]
+position = Vector2(414, 413)
 
-[node name="Piece13" parent="." groups=["pawn", "piece"] instance=ExtResource( 8 )]
-position = Vector2( 476, 413 )
+[node name="Piece13" parent="." groups=["pawn", "piece"] instance=ExtResource("8")]
+position = Vector2(476, 413)
 
-[node name="Piece14" parent="." groups=["piece"] instance=ExtResource( 12 )]
-position = Vector2( 157, 30 )
+[node name="Piece14" parent="." groups=["piece"] instance=ExtResource("12")]
+position = Vector2(157, 30)
 
-[node name="Piece15" parent="." groups=["piece"] instance=ExtResource( 12 )]
-position = Vector2( 355, 33 )
+[node name="Piece15" parent="." groups=["piece"] instance=ExtResource("12")]
+position = Vector2(355, 33)
 
-[node name="Piece16" parent="." groups=["piece"] instance=ExtResource( 14 )]
-position = Vector2( 96, 33 )
+[node name="Piece16" parent="." groups=["piece"] instance=ExtResource("14")]
+position = Vector2(96, 33)
 
-[node name="Piece17" parent="." groups=["piece"] instance=ExtResource( 14 )]
-position = Vector2( 415, 32 )
+[node name="Piece17" parent="." groups=["piece"] instance=ExtResource("14")]
+position = Vector2(415, 32)
 
-[node name="Piece18" parent="." groups=["piece"] instance=ExtResource( 15 )]
-position = Vector2( 223, 32 )
+[node name="Piece18" parent="." groups=["piece"] instance=ExtResource("15")]
+position = Vector2(223, 32)
 
-[node name="Piece19" parent="." groups=["pawn", "piece"] instance=ExtResource( 13 )]
-position = Vector2( 31, 92 )
+[node name="Piece19" parent="." groups=["pawn", "piece"] instance=ExtResource("13")]
+position = Vector2(31, 92)
 
-[node name="Piece20" parent="." groups=["pawn", "piece"] instance=ExtResource( 13 )]
-position = Vector2( 96, 99 )
+[node name="Piece20" parent="." groups=["pawn", "piece"] instance=ExtResource("13")]
+position = Vector2(96, 99)
 
-[node name="Piece21" parent="." groups=["pawn", "piece"] instance=ExtResource( 13 )]
-position = Vector2( 160, 99 )
+[node name="Piece21" parent="." groups=["pawn", "piece"] instance=ExtResource("13")]
+position = Vector2(160, 99)
 
-[node name="Piece22" parent="." groups=["pawn", "piece"] instance=ExtResource( 13 )]
-position = Vector2( 220, 98 )
+[node name="Piece22" parent="." groups=["pawn", "piece"] instance=ExtResource("13")]
+position = Vector2(220, 98)
 
-[node name="Piece23" parent="." groups=["pawn", "piece"] instance=ExtResource( 13 )]
-position = Vector2( 289, 99 )
+[node name="Piece23" parent="." groups=["pawn", "piece"] instance=ExtResource("13")]
+position = Vector2(289, 99)
 
-[node name="Piece24" parent="." groups=["pawn", "piece"] instance=ExtResource( 13 )]
-position = Vector2( 354, 99 )
+[node name="Piece24" parent="." groups=["pawn", "piece"] instance=ExtResource("13")]
+position = Vector2(354, 99)
 
-[node name="Piece25" parent="." groups=["pawn", "piece"] instance=ExtResource( 13 )]
-position = Vector2( 415, 95 )
+[node name="Piece25" parent="." groups=["pawn", "piece"] instance=ExtResource("13")]
+position = Vector2(415, 95)
 
-[node name="Piece26" parent="." groups=["pawn", "piece"] instance=ExtResource( 13 )]
-position = Vector2( 479, 99 )
+[node name="Piece26" parent="." groups=["pawn", "piece"] instance=ExtResource("13")]
+position = Vector2(479, 99)

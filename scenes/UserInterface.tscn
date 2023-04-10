@@ -1,50 +1,56 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://bfvk6d5gardu8"]
 
-[ext_resource path="res://scripts/UserInterface.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://scripts/UserInterface.gd" id="1"]
 
 [node name="UserInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 512.0
-margin_bottom = 512.0
-color = Color( 0.301961, 0.254902, 0.376471, 1 )
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 512.0
+color = Color(0.301961, 0.254902, 0.376471, 1)
 
 [node name="NewGame" type="Button" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -71.0
-margin_top = -69.0
-margin_right = 71.0
-margin_bottom = -11.0
+offset_left = -71.0
+offset_top = -69.0
+offset_right = 71.0
+offset_bottom = -11.0
 text = "New game"
 
 [node name="Quit" type="Button" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -71.0
-margin_top = 1.0
-margin_right = 71.0
-margin_bottom = 59.0
+offset_left = -71.0
+offset_top = 1.0
+offset_right = 71.0
+offset_bottom = 59.0
 text = "Quit"
 
 [node name="ShowMoves" type="CheckButton" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -97.0
-margin_top = 74.0
-margin_right = 97.0
-margin_bottom = 114.0
-pressed = true
+offset_left = -97.0
+offset_top = 74.0
+offset_right = 97.0
+offset_bottom = 114.0
 text = "Show legal moves"
 
 [connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
+[connection signal="toggled" from="ShowMoves" to="." method="_on_show_moves_toggled"]

@@ -22,42 +22,42 @@ func init(color):
 	pieceColor = color
 
 	if pieceColor == 0:
-		queen = PieceWhiteQueen.instance()
+		queen = PieceWhiteQueen.instantiate()
 		queen.ownColor = 0
 		queen.position = $QueenArea.position
 		add_child(queen)
 
-		rook = PieceWhiteRook.instance()
+		rook = PieceWhiteRook.instantiate()
 		rook.ownColor = 0
 		rook.position = $RookArea.position
 		add_child(rook)
 
-		bishop = PieceWhiteBishop.instance()
+		bishop = PieceWhiteBishop.instantiate()
 		bishop.ownColor = 0
 		bishop.position = $BishopArea.position
 		add_child(bishop)
 
-		knight = PieceWhiteKnight.instance()
+		knight = PieceWhiteKnight.instantiate()
 		knight.ownColor = 0
 		knight.position = $KnightArea.position
 		add_child(knight)
 	else:
-		queen = PieceBlackQueen.instance()
+		queen = PieceBlackQueen.instantiate()
 		queen.ownColor = 1
 		queen.position = $QueenArea.position
 		add_child(queen)
 
-		rook = PieceBlackRook.instance()
+		rook = PieceBlackRook.instantiate()
 		rook.ownColor = 1
 		rook.position = $RookArea.position
 		add_child(rook)
 
-		bishop = PieceBlackBishop.instance()
+		bishop = PieceBlackBishop.instantiate()
 		bishop.ownColor = 1
 		bishop.position = $BishopArea.position
 		add_child(bishop)
 
-		knight = PieceBlackKnight.instance()
+		knight = PieceBlackKnight.instantiate()
 		knight.ownColor = 1
 		knight.position = $KnightArea.position
 		add_child(knight)

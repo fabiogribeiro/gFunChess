@@ -17,7 +17,7 @@ var castlingKingside = false
 var castlingQueenside = false
 var inCheck = false
 
-var showLegalMoves = false
+var showsLegalMoves = false
 
 var turn = 0
 
@@ -29,8 +29,8 @@ func _ready():
 	
 	initPieces()
 
-func _input(event):
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		event.position = transform * event.position
 
 		var brd_index = Utils.coordsToSquare(event.position.x, event.position.y)
@@ -41,7 +41,7 @@ func _input(event):
 			selectedPiece.z_index = 1
 			board[brd_index] = null
 
-			if showLegalMoves: showLegalMoves()
+			if showsLegalMoves: showLegalMoves()
 	
 		if selectedPiece and not event.pressed:
 			get_tree().call_group('circle', 'queue_free')
@@ -62,18 +62,18 @@ func _input(event):
 				if selectedPiece.is_in_group('pawn'):
 					var selector = null
 					if brd_index / 8 == 0 and selectedPiece.ownColor == 0 :
-						selector = PieceSelector.instance()
+						selector = PieceSelector.instantiate()
 						selector.init(0)
 
 					if brd_index / 8 == 7 and selectedPiece.ownColor == 1:
-						selector = PieceSelector.instance()
+						selector = PieceSelector.instantiate()
 						selector.init(1)
 
 					if selector:
 						selectedPiece.setInSquare()
 						add_child(selector)
 						get_tree().paused = true
-						var new_piece = yield(selector, 'selected')
+						var new_piece = await selector.selected
 
 						selector.remove_child(new_piece)
 						self.add_child(new_piece)

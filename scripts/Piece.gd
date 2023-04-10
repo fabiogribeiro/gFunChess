@@ -2,7 +2,7 @@ extends Node2D
 
 
 enum PieceColor {WHITE, BLACK}
-export(PieceColor) var ownColor
+@export var ownColor: PieceColor
 
 var squareNumber
 var hasMoved = false
